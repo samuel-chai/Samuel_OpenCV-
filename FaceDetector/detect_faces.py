@@ -30,7 +30,7 @@ detections = net.forward()
 # loop over the detections
 for i in range(0, detections.shape[2])
     # exxtract the confidence (i.e., probability) associated with
-    # the prediction
+    # the predicton
     confidence = detections[0, 0, i, 2]
 
     # filter out weak detections by ensuring the `confidence` is
