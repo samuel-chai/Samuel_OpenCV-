@@ -1,0 +1,85 @@
+
+# OpenCV 学习与实践项目集
+
+本项目集包含多个使用OpenCV实现的计算机视觉应用，用于学习和实践目的。
+
+## 项目列表
+
+### 1. 文档扫描仪 (document scanner)
+- 功能：将任意角度的文档图片转换为规整的扫描件
+- 核心技术：边缘检测、透视变换、二值化处理
+- 使用方法：
+  ```bash
+  python scan.py -i img/test.jpeg
+  ```
+
+### 2. 人脸检测系统 (FaceDetector)
+- 功能：检测图片或视频中的人脸
+- 核心技术：Caffe深度学习模型、DNN模块
+- 使用方法：
+  ```bash
+  python detect_faces.py -i test.jpeg -p deploy.prototxt -m res10_300x300_ssd_iter_140000.caffemodel
+  ```
+
+### 3. 人脸识别系统 (Facerecognition)
+- 完整工作流程：
+  1. 图片采集：使用search_serapi.py从网络下载人脸图片到dataset
+  2. 特征编码：使用encode_faces.py生成人脸特征编码
+  3. 图片识别：使用recognize_faces_image.py识别静态图片中的人脸
+  4. 视频识别：使用recognize_faces_video.py实时识别视频流中的人脸
+
+- 核心技术：face_recognition库、CNN/HOG特征提取、SerpAPI图片搜索
+
+- 使用方法：
+  ```bash
+  # 1. 采集图片 (需要SerpAPI key)
+  python search_serapi.py
+  
+  # 2. 生成特征编码
+  python encode_faces.py --dataset dataset --encodings encodings.pickle
+  
+  # 3. 静态图片识别
+  python recognize_faces_image.py -i examples/example01.png -e encodings.pickle
+  
+  # 4. 实时视频识别
+  python recognize_faces_video.py -e encodings.pickle -o output/output.mp4
+
+  # 5. 视频识别
+  python python recognize_faces_video_file.py --encodings encodings.pickle \
+	--input videos/output_fixed.mp4 --output output/ output.mp4 \
+	--display 0
+  ```
+
+### 4. 实时物体检测 (ObjectDetection)
+- 功能：实时检测摄像头画面中的常见物体
+- 核心技术：MobileNet SSD模型
+- 使用方法：
+  ```bash
+  python real_time_object_detection.py -p MobileNetSSD_deploy.prototxt.txt -m MobileNetSSD_deploy.caffemodel
+  ```
+
+## 环境要求
+- Python 3.6+
+- OpenCV 4.x
+- 其他依赖库：
+  ```
+  numpy
+  imutils
+  face_recognition
+  scikit-image
+  ```
+
+## 安装
+```bash
+pip install -r requirements.txt
+```
+
+## 项目结构
+```
+.
+├── document scanner/    # 文档扫描项目
+├── FaceDetector/        # 人脸检测项目
+├── Facerecognition/     # 人脸识别项目
+└── ObjectDetection/     # 物体检测项目
+```
+
