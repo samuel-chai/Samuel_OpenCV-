@@ -58,6 +58,25 @@
   python real_time_object_detection.py -p MobileNetSSD_deploy.prototxt.txt -m MobileNetSSD_deploy.caffemodel
   ```
 
+### 5. 显著性检测系统 (SaliencyDetection)
+- 功能：检测图像中最吸引人注意的区域
+- 包含三种检测方法：
+  1. 静态显著性检测：识别图像中静态的显著区域
+  2. 运动显著性检测：识别视频中的运动显著区域
+  3. 物体显著性检测：基于物体特征的显著性检测
+- 核心技术：OpenCV显著性检测算法
+- 使用方法：
+  ```bash
+  # 静态显著性检测
+  python static_saliency.py -i images/barcelona.jpg
+  
+  # 运动显著性检测
+  python motion_saliency.py
+  
+  # 物体显著性检测
+  python objectness_saliency.py
+  ```
+
 ## 环境要求
 - Python 3.6+
 - OpenCV 4.x
@@ -69,17 +88,13 @@
   scikit-image
   ```
 
-## 安装
-```bash
-pip install -r requirements.txt
-```
-
 ## 项目结构
 ```
 .
 ├── document scanner/    # 文档扫描项目
 ├── FaceDetector/        # 人脸检测项目
 ├── Facerecognition/     # 人脸识别项目
-└── ObjectDetection/     # 物体检测项目
+├── ObjectDetection/     # 物体检测项目
+└── SaliencyDetection/   # 显著性检测项目
 ```
 
