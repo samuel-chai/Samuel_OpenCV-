@@ -4,8 +4,8 @@ import cv2
 from imutils import paths
 
 # ==================== 設定區 ====================
-API_KEY = "508f636e5dc5465eaf5fb2a9ad213fd390189599343a8d3538e5912e9fbc1692"  # ← 換成你自己的金鑰
-SEARCH_TERM = "Luis Suarez"       # ← 替換為你想要的搜尋關鍵字
+API_KEY = "API form serapi"  # ← 換成你自己的金鑰
+SEARCH_TERM = "Luis "       # ← 替換為你想要的搜尋關鍵字
 NUM_IMAGES = 30               # ← 想要下載的圖片數量
 OUTPUT_FOLDER = f"dataset/{SEARCH_TERM}"  # 儲存的資料夾
 # ==============================================
