@@ -18,13 +18,13 @@ CLASSES = open(args["classes"]).read().strip().split("\n")
 if args["colors"]:
     COLORS = open(args["colors"]).read().strip().split("\n")
     COLORS = [np.array(c.split(",")).astype("int") for c in COLORS]
-    COLORS = np.array(COLORS, dtype ="unit8")
+    COLORS = np.array(COLORS, dtype ="uint8")
 else:
     np.random.seed(42)
     COLORS = np.random.radint(0, 255, size=(len(CLASSES) -1, 3), dtype = "unit8")
-    COLORS = np.vstack([[0,0,0], COLORS]).astype("unit8")
+    COLORS = np.vstack([[0,0,0], COLORS]).astype("uint8")
 
-legend = np.zeros(((len(CLASSES) * 25) + 25, 300, 3), dtype = "unit8")
+legend = np.zeros(((len(CLASSES) * 25) + 25, 300, 3), dtype = "uint8")
 
 for (i, (className, color)) in enumerate(zip(CLASSES, COLORS)):
 	# draw the class name + color on the legend
