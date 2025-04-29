@@ -138,23 +138,3 @@ while True:
 		# draw the bounding box on the frame
 		cv2.rectangle(orig, (startX, startY), (endX, endY), (0, 255, 0), 2)
 		
-	# update the FPS counter
-	fps.update()
-	# show the output frame
-	cv2.imshow("Text Detection", orig)
-	key = cv2.waitKey(1) & 0xFF
-	# if the `q` key was pressed, break from the loop
-	if key == ord("q"):
-		break
-# stop the timer and display FPS information
-fps.stop()
-print("[INFO] elasped time: {:.2f}".format(fps.elapsed()))
-print("[INFO] approx. FPS: {:.2f}".format(fps.fps()))
-# if we are using a webcam, release the pointer
-if not args.get("video", False):
-	vs.stop()
-# otherwise, release the file pointer
-else:
-	vs.release()
-# close all windows
-cv2.destroyAllWindows()
