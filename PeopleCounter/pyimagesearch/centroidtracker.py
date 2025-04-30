@@ -4,7 +4,7 @@ import numpy as np
 
 
 class CentroidTracker():
-	def __init__(self, maxDisappeared=50):
+	def __init__(self, maxDisappeared=50, maxDistance=50):
 		# initialize the next unique object ID along with two ordered
 		# dictionaries used to keep track of mapping a given object
 		# ID to its centroid and number of consecutive frames it has
@@ -16,6 +16,7 @@ class CentroidTracker():
 		# object is allowed to be marked as "disappeared" until we
 		# need to deregister the object from tracking
 		self.maxDisappeared = maxDisappeared
+		self.maxDistance = maxDistance
 
 	def register(self, centroid):
 		# when registering an object we use the next available object
@@ -86,12 +87,15 @@ class CentroidTracker():
 			usedCols = set()
 			# loop over the combination of the (row, column) index
 			# tuples
+			
 			for (row, col) in zip(rows, cols):
 				# if we have already examined either the row or
 				# column value before, ignore it
 				# val
 				if row in usedRows or col in usedCols:
 					continue
+				if D[row, col] > self.maxDistance:
+					continue  # 忽略這組配對
 				# otherwise, grab the object ID for the current row,
 				# set its new centroid, and reset the disappeared
 				# counter
@@ -110,6 +114,7 @@ class CentroidTracker():
 			# equal or greater than the number of input centroids
 			# we need to check and see if some of these objects have
 			# potentially disappeared
+			
 			if D.shape[0] >= D.shape[1]:
 				# loop over the unused row indexes
 				for row in unusedRows:
