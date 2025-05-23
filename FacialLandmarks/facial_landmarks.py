@@ -18,15 +18,31 @@ args = vars(ap.parse_args())
 detector = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor(args["shape_predictor"])
 
-# load the input image, resize it, and convert it to grayscale
+# load and validate input image
 image = cv2.imread(args["image"])
-image = imutils.resize(image, width=500)
-gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-# detect faces in the grayscale image
-rects = detector(gray, 1)
+if image is None:
+    raise ValueError(f"无法加载图像: {args['image']}")
 
-# loop over the face detections
-for (i, rect) in enumerate(rects):
+try:
+    print("[INFO] 正在处理图像...")
+    image = imutils.resize(image, width=500)
+    gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+    
+    # detect faces in the grayscale image
+    print("[INFO] 检测人脑中...")
+    rects = detector(gray, 1)
+    
+    if len(rects) == 0:
+        print("[WARNING] 未检测到人脸 - 请检查图像质量或角度")
+        cv2.imshow("Input", image)
+        cv2.waitKey(0)
+        cv2.destroyAllWindows()
+        exit()
+    else:
+        print(f"[INFO] 检测到 {len(rects)} 张人脸")
+
+    # loop over the face detections
+    for (i, rect) in enumerate(rects):
 	# determine the facial landmarks for the face region, then
 	# convert the facial landmark (x, y)-coordinates to a NumPy
 	# array
@@ -46,3 +62,4 @@ for (i, rect) in enumerate(rects):
 # show the output image with the face detections + facial landmarks
 cv2.imshow("Output", image)
 cv2.waitKey(0)
+cv2.destroyAllWindows()
