@@ -1,0 +1,13 @@
+# 忽略大型模型檔案與資料
+*.dat
+*.pb
+*.tar.gz
+*.ckpt
+*.h5
+*.pth
+*.onnx
+*.pt
+
+# 忽略 TensorFlow SavedModel 資料夾
+saved_model/
+__pycache__/
